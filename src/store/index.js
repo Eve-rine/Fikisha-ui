@@ -22,10 +22,11 @@ export default new Vuex.Store({
           .then(res=>{
             localStorage.setItem('Fikisha_user', JSON.stringify(res.data.data))
             localStorage.setItem('Fikisha_token', res.data.token)
-            // window.location.replace('/')
+            Event.$emit('ApiSuccess', 'Logging In...')
             router.push('/')
           })
-          .catch(err=>{
+          .catch((err)=>{
+            Event.$emit('ApiError', 'Incorrect credentials')
             console.log(err)
           })
     },
