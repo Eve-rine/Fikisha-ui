@@ -169,6 +169,28 @@ export default new Vuex.Store({
             console.log(err)
           })
     },
+    
+    allocateOrder({dispatch}, payload){
+      instance('post','load',payload)
+          .then(()=>{
+            dispatch('getOrders')
+          })
+          .catch((err)=>{
+            // Event.$emit('ApiError', 'Unable to add customer')
+            console.log(err)
+          })
+    },
+        
+    dispatchOrders({dispatch}, payload){
+      instance('post','load',payload)
+          .then(()=>{
+            dispatch('getOrders')
+          })
+          .catch((err)=>{
+            // Event.$emit('ApiError', 'Unable to add customer')
+            console.log(err)
+          })
+    },
   },
   modules: {
   }
