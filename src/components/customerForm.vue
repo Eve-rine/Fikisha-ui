@@ -11,7 +11,7 @@
           class="mr-2"
           color="error"
           elevation="0"
-          @click="deletePettyCash"
+          @click="removeCustomer"
         >
           <v-icon small class="mx-2">delete</v-icon>
            <span>Delete</span>
@@ -25,7 +25,7 @@
           <v-icon small class="mx-2">
             mdi-content-save
           </v-icon>
-          <span> {{ $route.query.edit ? `Save Changes` : "Save" }} </span>
+          <span> {{ $route.params.code ? `Save Changes` : "Save" }} </span>
         </v-btn>
       </v-app-bar>
       <v-divider></v-divider>
@@ -110,10 +110,10 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next((v) => {
-      if (v.$route.query.edit) {
+      if (v.$route.params) {
         v.$store.dispatch(
           'getCustomer',
-          v.$route.query.edit
+          v.$route.params.code
         )
       }
     })
@@ -128,7 +128,7 @@ export default {
   },
   watch: {
     customer() {
-        if (this.$route.query.edit) {
+        if (this.$route.params) {
           this.formData = { ...this.customer }
         }
     },
@@ -138,14 +138,17 @@ export default {
       if (!this.isValid) {
         this.$refs.customerForm.validate()
       } else {
-          if (this.$route.query.edit) {
+          if (this.$route.params.code) {
       this.$store.dispatch('updateCustomer', { ...this.formData})
       }else{
         console.log(this.formData)
         this.$store.dispatch('addCustomer', { ...this.formData})
       }
     }
-}
+},
+    removeCustomer() {
+      this.$store.dispatch('removeCustomer', this.$route.params.code)
+    },
   }
 }
 </script>

@@ -9,10 +9,16 @@ export default new Vuex.Store({
   state: {
     user: null,
     token: null,
-    customers: []
+    customers: [],
+    customer:{},
+    vehicles:[],
+    vehicle:{}
   },
   getters: {
     customers: state => state.customers,
+    customer: state => state.customer,
+    vehicles: state => state.vehicles,
+    vehicle: state => state.vehicle
   },
   mutations: {
     MUTATE: (state, payload) => {
@@ -66,7 +72,7 @@ export default new Vuex.Store({
           })
     },
     getCustomer({commit}, id){
-      instance('patch',`customers/${id}`)
+      instance('get',`customers/${id}`)
           .then((res)=>{
             commit('MUTATE', { state: 'customer', data: res.data.data })
           })
@@ -75,7 +81,8 @@ export default new Vuex.Store({
             console.log(err)
           })
     },
-    updateCustomer(payload){
+    updateCustomer({commit},payload){
+      console.log(commit)
       instance('patch',`customers/${payload.id}`, payload)
           .then(()=>{
             router.push('/customers')
@@ -88,10 +95,55 @@ export default new Vuex.Store({
     removeCustomer({dispatch}, id){
       instance('delete',`customers/${id}`)
           .then(()=>{
+            Event.$emit('ApiSuccess', 'Customer Successfully removed')
+            router.push('/customers')
             dispatch('getCustomers')
           })
           .catch((err)=>{
             Event.$emit('ApiError', 'Unable to delete customer')
+            console.log(err)
+          })
+    },
+    getVehicles({commit}){
+      instance('get','fleet')
+          .then((res)=>{
+            commit('MUTATE', { state: 'vehicles', data: res.data.data.data })
+          })
+          .catch((err)=>{
+            Event.$emit('ApiError', 'Unable to get vehicles')
+            console.log(err)
+          })
+    },
+    getVehicle({commit}, id){
+      instance('get',`fleet/${id}`)
+          .then((res)=>{
+            commit('MUTATE', { state: 'vehicle', data: res.data.data })
+          })
+          .catch((err)=>{
+            Event.$emit('ApiError', 'Unable to get customer')
+            console.log(err)
+          })
+    },
+    updateVehicle({commit},payload){
+      console.log(commit)
+      instance('patch',`fleet/${payload.id}`, payload)
+          .then(()=>{
+            router.push('/vehicles')
+          })
+          .catch((err)=>{
+            Event.$emit('ApiError', 'Unable to update vehicle')
+            console.log(err)
+          })
+    },
+    removeVehicle({dispatch}, id){
+      instance('delete',`fleet/${id}`)
+          .then(()=>{
+            Event.$emit('ApiSuccess', 'Vehicle Successfully removed')
+            router.push('/vehicles')
+            dispatch('getVehicles')
+          })
+          .catch((err)=>{
+            Event.$emit('ApiError', 'Unable to delete vehicle')
             console.log(err)
           })
     },

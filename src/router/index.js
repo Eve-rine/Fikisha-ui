@@ -31,6 +31,7 @@ const routes = [
     path: '/customer/:code?',
     name: 'customerForm',
     component: customerForm,
+    props: true,
     meta: {
       middleware: [Authentication]
     }
@@ -43,7 +44,7 @@ const routes = [
 ]
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.VUE_APP_BASE_URL,
+  base: '',
   routes
 })
 router.beforeEach((to, from, next) => {

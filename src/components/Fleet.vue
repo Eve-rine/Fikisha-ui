@@ -11,10 +11,10 @@
           <v-btn
             class="indigo white--text"
             :to="{
-              name: 'customerForm',
+              name: 'vehicleForm',
             }"
           >
-            <v-icon class="mr-2">mdi-plus</v-icon>Add Customer
+            <v-icon class="mr-2">mdi-plus</v-icon>Add Vehicle
           </v-btn>
         </div>
       </v-card-title>
@@ -23,7 +23,7 @@
         <v-data-table
           :items-per-page="10"
           :headers="headers"
-          :items="fleetList"
+          :items="customerList"
         >
         <template v-slot:[`item.ID`]="{ index }">
           <!-- <template v-slot:item.ID="{ index }"> -->
@@ -52,7 +52,7 @@
               </template>
               <v-list>
                 <v-list-item
-                  @click="removeVehicle(item)"
+                  @click="removeCustomer(item)"
                 >
                   <v-icon color="error" size="">mdi-delete</v-icon>
                   Remove
@@ -74,10 +74,10 @@
 
 <script>
 export default {
-  name: "fleetList",
+  name: "CustomerList",
   beforeRouteEnter(to, from, next) {
     next((v) => {
-      v.$store.dispatch("getVehicles");
+      v.$store.dispatch("getCustomers");
     });
   },
   data: () => ({
@@ -91,13 +91,13 @@ export default {
     ],
   }),
   computed: {
-    fleetList() {
+    customerList() {
       return this.$store.getters['vehicles'];
     },
   },
   methods: {
-    removeVehicle(item) {
-      this.$store.dispatch('removeVehicle', item.id)
+    removeCustomer(item) {
+      this.$store.dispatch('removeCustomer', item.id)
     },
   },
 };
