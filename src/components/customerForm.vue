@@ -6,7 +6,7 @@
           <v-icon class="mx-1">mdi-arrow-left-thin</v-icon>
           back
         </v-btn>
-        <div class="text-h6">Add Customer</div><v-spacer/>
+        <div class="text-h6"> {{ $route.params.code ? `Edit` : "Add" }} Customer Details</div><v-spacer/>
         <v-btn  v-if="displayActions"
           class="mr-2"
           color="error"

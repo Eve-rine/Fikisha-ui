@@ -12,13 +12,15 @@ export default new Vuex.Store({
     customers: [],
     customer:{},
     vehicles:[],
-    vehicle:{}
+    vehicle:{},
+    orders:[]
   },
   getters: {
     customers: state => state.customers,
     customer: state => state.customer,
     vehicles: state => state.vehicles,
-    vehicle: state => state.vehicle
+    vehicle: state => state.vehicle,
+    orders: state => state.orders
   },
   mutations: {
     MUTATE: (state, payload) => {
@@ -57,7 +59,7 @@ export default new Vuex.Store({
             router.push('/customers')
           })
           .catch((err)=>{
-            Event.$emit('ApiError', 'Unable to add customer')
+            // Event.$emit('ApiError', 'Unable to add customer')
             console.log(err)
           })
     },
@@ -67,7 +69,7 @@ export default new Vuex.Store({
             commit('MUTATE', { state: 'customers', data: res.data.data.data })
           })
           .catch((err)=>{
-            Event.$emit('ApiError', 'Unable to get customers')
+            // Event.$emit('ApiError', 'Unable to get customers')
             console.log(err)
           })
     },
@@ -77,7 +79,7 @@ export default new Vuex.Store({
             commit('MUTATE', { state: 'customer', data: res.data.data })
           })
           .catch((err)=>{
-            Event.$emit('ApiError', 'Unable to get customer')
+            // Event.$emit('ApiError', 'Unable to get customer')
             console.log(err)
           })
     },
@@ -88,7 +90,7 @@ export default new Vuex.Store({
             router.push('/customers')
           })
           .catch((err)=>{
-            Event.$emit('ApiError', 'Unable to update customer')
+            // Event.$emit('ApiError', 'Unable to update customer')
             console.log(err)
           })
     },
@@ -100,7 +102,7 @@ export default new Vuex.Store({
             dispatch('getCustomers')
           })
           .catch((err)=>{
-            Event.$emit('ApiError', 'Unable to delete customer')
+            // Event.$emit('ApiError', 'Unable to delete customer')
             console.log(err)
           })
     },
@@ -110,7 +112,7 @@ export default new Vuex.Store({
             dispatch('getVehicles')
           })
           .catch((err)=>{
-            Event.$emit('ApiError', 'Unable to add customer')
+            // Event.$emit('ApiError', 'Unable to add customer')
             console.log(err)
           })
     },
@@ -120,7 +122,7 @@ export default new Vuex.Store({
             commit('MUTATE', { state: 'vehicles', data: res.data.data.data })
           })
           .catch((err)=>{
-            Event.$emit('ApiError', 'Unable to get vehicles')
+            // Event.$emit('ApiError', 'Unable to get vehicles')
             console.log(err)
           })
     },
@@ -130,7 +132,7 @@ export default new Vuex.Store({
             commit('MUTATE', { state: 'vehicle', data: res.data.data })
           })
           .catch((err)=>{
-            Event.$emit('ApiError', 'Unable to get customer')
+            // Event.$emit('ApiError', 'Unable to get customer')
             console.log(err)
           })
     },
@@ -153,7 +155,17 @@ export default new Vuex.Store({
             dispatch('getVehicles')
           })
           .catch((err)=>{
-            Event.$emit('ApiError', 'Unable to delete vehicle')
+            // Event.$emit('ApiError', 'Unable to delete vehicle')
+            console.log(err)
+          })
+    },
+    getOrders({commit}){
+      instance('get','orders')
+          .then((res)=>{
+            commit('MUTATE', { state: 'orders', data: res.data.data.data })
+          })
+          .catch((err)=>{
+            // Event.$emit('ApiError', 'Unable to get orders')
             console.log(err)
           })
     },

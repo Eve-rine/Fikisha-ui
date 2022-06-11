@@ -51,17 +51,17 @@
                 </v-btn>
               </template>
               <v-list>
+              <v-list-item
+                    :to="{ name: 'customerForm', params: { code : item.id }}"
+                >
+                  <v-icon color="info" size="">mdi-eye</v-icon>
+                  View
+                </v-list-item>
                 <v-list-item
                   @click="removeCustomer(item)"
                 >
                   <v-icon color="error" size="">mdi-delete</v-icon>
                   Remove
-                </v-list-item>
-                     <v-list-item
-                    :to="{ name: 'customerForm', params: { code : item.id }}"
-                >
-                  <v-icon color="info" size="">mdi-eye</v-icon>
-                  View
                 </v-list-item>
               </v-list>
             </v-menu>

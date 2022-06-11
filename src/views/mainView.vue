@@ -182,57 +182,9 @@ export default {
       {
         title: 'Orders',
         icon: 'mdi-account-check',
-        to: '/appraisal/dashboard',
-        sublinks: [
-          {
-            title: 'Pending',
-            icon: 'mdi-playlist-edit',
-            to: '/orders/pending',
-            enable: true
-          },
-          {
-            title: 'Loading',
-            icon: 'mdi-account-multiple',
-            to: '/orders/loading',
-            enable: true
-          },
-          {
-            title: 'Dispatched',
-            icon: 'mdi-playlist-edit',
-            to: '/orders/dispatched',
-            enable: true
-          },
-          {
-            title: 'Delivered',
-            icon: 'mdi-account-multiple',
-            to: '/orders/delivered',
-            enable: true
-          }]
+        to: '/orders',
+        sublinks: []
       }
-      // {
-      //   title: 'Vehicles',
-      //   icon: 'mdi-account-check',
-      //   to: '/vehicles',
-      //   sublinks: [
-      //     {
-      //       title: 'Available',
-      //       icon: 'mdi-playlist-edit',
-      //       to: '/orders/pending',
-      //       enable: true
-      //     },
-      //     {
-      //       title: 'Loading',
-      //       icon: 'mdi-account-multiple',
-      //       to: '/orders/loading',
-      //       enable: true
-      //     },
-      //     {
-      //       title: 'On Transit',
-      //       icon: 'mdi-account-multiple',
-      //       to: '/orders/on-transit',
-      //       enable: true
-      //     }
-      //   ]}
     ]
   }),
   methods: {

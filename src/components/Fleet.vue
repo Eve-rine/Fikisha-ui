@@ -2,11 +2,24 @@
   <v-container>
     <v-card flat>
       <v-card-title>
-        <!-- <v-btn text small @click="$router.back()">
-          <v-icon left> mdi-arrow-left </v-icon>
-          Back
-        </v-btn> -->
+        <span>Vehicles</span>
         <v-spacer />
+            <v-row>
+                <v-col cols="12" md="8" class="mt-2">
+                      <v-select
+                        v-model="selectedStatus"
+                        prepend-inner-icon="filter_alt"
+                        color="primary"
+                        dense
+                        :items="status"
+                        :item-text="(item) => item.name"
+                        :item-value="(item) => item.name"
+                        label="Filter by Status"
+                        @change="filterFleetlList"
+                      ></v-select>
+                </v-col>
+              </v-row>
+        <v-spacer/>
         <div class="ma-2">
           <v-btn
             class="indigo white--text"
@@ -43,15 +56,15 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item @click="removeVehicle(item)">
-                  <v-icon color="error" size="">mdi-delete</v-icon>
-                  Remove
-                </v-list-item>
                 <v-list-item
                   @click="getVehicle(item)"
                 >
                   <v-icon color="info" size="">mdi-eye</v-icon>
                   View
+                </v-list-item>
+                <v-list-item @click="removeVehicle(item)">
+                  <v-icon color="error" size="">mdi-delete</v-icon>
+                  Remove
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -59,9 +72,9 @@
         </v-data-table>
       </v-card-text>
     </v-card>
-        <v-dialog v-model="dialog" scrollable max-width="300px">
+        <v-dialog v-model="dialog" persistent max-width="300px">
           <v-card>
-            <v-app-bar color="indigo" class="white--text">Add Vehicle</v-app-bar>
+            <v-app-bar color="indigo" class="white--text"> {{ isEdit ? `Edit` : "Add" }} Vehicle</v-app-bar>
             <v-divider></v-divider>
             <v-card-text>
               <v-row class="mt-4">
@@ -111,17 +124,30 @@ export default {
     dialog: false,
     isEdit: false,
     isValid: true,
+    selectedStatus: '',
+    Status: '',
     rules: {
         required: (value) => !!value || 'Required.',
       },
       formData:{
           registration_number: '',
           status:''
-      }
+      },
+    status: [
+        {name:'Available'},
+        {name:'Loading'},
+        {name:'On Transit'}
+    ],
   }),
   computed: {
     fleetList() {
-      return this.$store.getters["vehicles"];
+    if (this.Status !== '') {
+        return this.$store.getters['vehicles'].filter(
+          (a) => a.status === this.Status
+        )
+      } else {
+        return this.$store.getters['vehicles']
+      }
     },
     vehicle () {
       return this.$store.getters['vehicle']
@@ -157,7 +183,10 @@ export default {
         this.closeModal()
       }
     }
-},
+    },
+    filterFleetlList () {
+      this.Status = this.selectedStatus
+    }
   },
  watch: {
     vehicle() {
