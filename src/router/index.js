@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import CustomerList from '../components/Customers.vue'
 import AppDashboard from '../components/Dashboard.vue'
 import LoginPage from '../components/Login.vue'
-import Authentication from "@/middleware/Auth";
+import Authentication from "@/middleware/Auth"
+import customerForm from '../components/customerForm.vue'
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,14 @@ const routes = [
     meta: {
       middleware: [Authentication],
       },
+  },
+  {
+    path: '/customer/:code?',
+    name: 'customerForm',
+    component: customerForm,
+    meta: {
+      middleware: [Authentication]
+    }
   },
   {
     path: '/login',

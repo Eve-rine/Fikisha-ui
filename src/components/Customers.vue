@@ -11,7 +11,7 @@
           <v-btn
             class="indigo white--text"
             :to="{
-              name: 'Add Customer',
+              name: 'customerForm',
             }"
           >
             <v-icon class="mr-2">mdi-plus</v-icon>Add Customer
@@ -35,8 +35,8 @@
         <template v-slot:[`item.email`]="{ item }">
         <span>{{item.email }}</span>
          </template>
-        <template v-slot:[`item.location`]="{ item }">
-        <span>{{item.email }}</span>
+        <template v-slot:[`item.phone`]="{ item }">
+        <span>{{item.phone }}</span>
          </template>
         <template v-slot:[`item.action`]="{ item }">
             <v-menu open-on-hover>
@@ -57,6 +57,12 @@
                   <v-icon color="error" size="">mdi-delete</v-icon>
                   Remove
                 </v-list-item>
+                     <v-list-item
+                    :to="{ name: 'customerForm', params: { code : item.id }}"
+                >
+                  <v-icon color="info" size="">mdi-eye</v-icon>
+                  View
+                </v-list-item>
               </v-list>
             </v-menu>
           </template>
@@ -71,7 +77,7 @@ export default {
   name: "CustomerList",
   beforeRouteEnter(to, from, next) {
     next((v) => {
-      v.$store.dispatch("Exam/studentRegistrations");
+      v.$store.dispatch("getCustomers");
     });
   },
   data: () => ({
@@ -80,17 +86,18 @@ export default {
       { text: "#S/N", value: "ID" },
       { text: "Name", value: "name" },
       { text: "Email", value: "email" },
-      { text: "Location", value: "location" },
+      { text: "Phone", value: "phone" },
       { text: "Actions", value: "action" },
     ],
   }),
   computed: {
     customerList() {
-      return [];
+      return this.$store.getters['customers'];
     },
   },
   methods: {
-    removeItem() {
+    removeItem(item) {
+      this.$store.dispatch('removeCustomer', item.id)
     },
   },
 };
