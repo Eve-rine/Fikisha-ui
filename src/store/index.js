@@ -35,7 +35,7 @@ export default new Vuex.Store({
             localStorage.setItem('Fikisha_user', JSON.stringify(res.data.data))
             localStorage.setItem('Fikisha_token', res.data.token)
             Event.$emit('ApiSuccess', 'Logging In...')
-            router.push('/')
+            router.push('/dashboard')
           })
           .catch((err)=>{
             Event.$emit('ApiError', 'Incorrect credentials')

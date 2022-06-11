@@ -27,7 +27,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="indigo" @click="login">Login</v-btn>
+                <v-btn class="white--text" color="indigo" @click="login">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

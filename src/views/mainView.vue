@@ -127,13 +127,13 @@
             <v-btn
                 v-bind="attrs"
                 v-on="on"
+                @click="logout"
             >
-              <v-badge :content="1" :value="1" color="red" overlap dot>
-                <v-icon>mdi-newspaper</v-icon>
-              </v-badge>
+            <v-icon>mdi-logout</v-icon> Logout
             </v-btn>
+              <div class="pa-2">
+          </div>
           </template>
-          <span>Notice Board</span>
         </v-tooltip>
       </v-app-bar>
 
@@ -163,25 +163,25 @@ export default {
     Links: [
       {
         title: 'Dashboard',
-        icon: 'mdi-acount-check',
+        icon: 'mdi-view-grid',
         to: '/dashboard',
         sublinks: []
       },
       {
         title: 'Customers',
-        icon: 'mdi-account-check',
+        icon: 'mdi-account-multiple',
         to: '/customers',
         sublinks: []
       },
       {
         title: 'Vehicles',
-        icon: 'mdi-account-check',
+        icon: 'mdi-car-pickup',
         to: '/vehicles',
         sublinks: []
       },
       {
         title: 'Orders',
-        icon: 'mdi-account-check',
+        icon: 'mdi-playlist-check',
         to: '/orders',
         sublinks: []
       }
