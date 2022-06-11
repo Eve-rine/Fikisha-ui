@@ -4,6 +4,7 @@ const config = {
     baseURL: apiBaseUrl,
 };
 const jwtInterceptor = axios.create(config);
+console.log('intercept')
 let token=localStorage.getItem('Fikisha_token');
 const authInterceptor = (config) => {
     if (token) {
