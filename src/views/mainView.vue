@@ -174,6 +174,12 @@ export default {
         sublinks: []
       },
       {
+        title: 'Vehicles',
+        icon: 'mdi-account-check',
+        to: '/vehicles',
+        sublinks: []
+      },
+      {
         title: 'Orders',
         icon: 'mdi-account-check',
         to: '/appraisal/dashboard',
@@ -202,31 +208,31 @@ export default {
             to: '/orders/delivered',
             enable: true
           }]
-      },
-      {
-        title: 'Vehicles',
-        icon: 'mdi-account-check',
-        to: '/vehicles',
-        sublinks: [
-          {
-            title: 'Available',
-            icon: 'mdi-playlist-edit',
-            to: '/orders/pending',
-            enable: true
-          },
-          {
-            title: 'Loading',
-            icon: 'mdi-account-multiple',
-            to: '/orders/loading',
-            enable: true
-          },
-          {
-            title: 'On Transit',
-            icon: 'mdi-account-multiple',
-            to: '/orders/on-transit',
-            enable: true
-          }
-        ]}
+      }
+      // {
+      //   title: 'Vehicles',
+      //   icon: 'mdi-account-check',
+      //   to: '/vehicles',
+      //   sublinks: [
+      //     {
+      //       title: 'Available',
+      //       icon: 'mdi-playlist-edit',
+      //       to: '/orders/pending',
+      //       enable: true
+      //     },
+      //     {
+      //       title: 'Loading',
+      //       icon: 'mdi-account-multiple',
+      //       to: '/orders/loading',
+      //       enable: true
+      //     },
+      //     {
+      //       title: 'On Transit',
+      //       icon: 'mdi-account-multiple',
+      //       to: '/orders/on-transit',
+      //       enable: true
+      //     }
+      //   ]}
     ]
   }),
   methods: {

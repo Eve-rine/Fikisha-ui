@@ -23,7 +23,7 @@
         <v-data-table
           :items-per-page="10"
           :headers="headers"
-          :items="fleetList"
+          :items="customerList"
         >
         <template v-slot:[`item.ID`]="{ index }">
           <!-- <template v-slot:item.ID="{ index }"> -->
@@ -52,7 +52,7 @@
               </template>
               <v-list>
                 <v-list-item
-                  @click="removeVehicle(item)"
+                  @click="removeCustomer(item)"
                 >
                   <v-icon color="error" size="">mdi-delete</v-icon>
                   Remove
@@ -74,14 +74,13 @@
 
 <script>
 export default {
-  name: "fleetList",
+  name: "CustomerList",
   beforeRouteEnter(to, from, next) {
     next((v) => {
-      v.$store.dispatch("getVehicles");
+      v.$store.dispatch("getCustomers");
     });
   },
   data: () => ({
-    routeParameter: "",
     headers: [
       { text: "#S/N", value: "ID" },
       { text: "Name", value: "name" },
@@ -91,13 +90,13 @@ export default {
     ],
   }),
   computed: {
-    fleetList() {
-      return this.$store.getters['vehicles'];
+    customerList() {
+      return this.$store.getters['customers'];
     },
   },
   methods: {
-    removeVehicle(item) {
-      this.$store.dispatch('removeVehicle', item.id)
+    removeCustomer(item) {
+      this.$store.dispatch('removeCustomer', item.id)
     },
   },
 };

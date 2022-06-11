@@ -104,6 +104,16 @@ export default new Vuex.Store({
             console.log(err)
           })
     },
+    addVehicle({dispatch}, payload){
+      instance('post','fleet',payload)
+          .then(()=>{
+            dispatch('getVehicles')
+          })
+          .catch((err)=>{
+            Event.$emit('ApiError', 'Unable to add customer')
+            console.log(err)
+          })
+    },
     getVehicles({commit}){
       instance('get','fleet')
           .then((res)=>{
@@ -124,11 +134,11 @@ export default new Vuex.Store({
             console.log(err)
           })
     },
-    updateVehicle({commit},payload){
-      console.log(commit)
+    updateVehicle({dispatch},payload){
       instance('patch',`fleet/${payload.id}`, payload)
           .then(()=>{
-            router.push('/vehicles')
+            Event.$emit('ApiSuccess', 'Vehicle Successfully updated')
+            dispatch('getVehicles')
           })
           .catch((err)=>{
             Event.$emit('ApiError', 'Unable to update vehicle')

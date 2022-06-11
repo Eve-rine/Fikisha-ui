@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import CustomerList from '../components/Customers.vue'
+import VehicleList from '../components/Fleet.vue'
 import AppDashboard from '../components/Dashboard.vue'
 import LoginPage from '../components/Login.vue'
 import Authentication from "@/middleware/Auth"
@@ -35,6 +36,14 @@ const routes = [
     meta: {
       middleware: [Authentication]
     }
+  },
+  {
+    path: '/vehicles',
+    name: 'Vehiclelist',
+    component: VehicleList,
+    meta: {
+      middleware: [Authentication],
+      },
   },
   {
     path: '/login',

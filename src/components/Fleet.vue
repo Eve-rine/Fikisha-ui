@@ -10,9 +10,7 @@
         <div class="ma-2">
           <v-btn
             class="indigo white--text"
-            :to="{
-              name: 'vehicleForm',
-            }"
+            @click="openModal()"
           >
             <v-icon class="mr-2">mdi-plus</v-icon>Add Vehicle
           </v-btn>
@@ -23,22 +21,16 @@
         <v-data-table
           :items-per-page="10"
           :headers="headers"
-          :items="customerList"
+          :items="fleetList"
         >
-        <template v-slot:[`item.ID`]="{ index }">
-          <!-- <template v-slot:item.ID="{ index }"> -->
+          <template v-slot:[`item.ID`]="{ index }">
+            <!-- <template v-slot:item.ID="{ index }"> -->
             <span>{{ index + 1 }}</span>
           </template>
-         <template v-slot:[`item.name`]="{ item }">
-        <span>{{item.name }}</span>
-         </template>
-        <template v-slot:[`item.email`]="{ item }">
-        <span>{{item.email }}</span>
-         </template>
-        <template v-slot:[`item.phone`]="{ item }">
-        <span>{{item.phone }}</span>
-         </template>
-        <template v-slot:[`item.action`]="{ item }">
+          <template v-slot:[`item.registration_number`]="{ item }">
+            <span>{{ item.registration_number }}</span>
+          </template>
+          <template v-slot:[`item.action`]="{ item }">
             <v-menu open-on-hover>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -51,14 +43,12 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item
-                  @click="removeCustomer(item)"
-                >
+                <v-list-item @click="removeVehicle(item)">
                   <v-icon color="error" size="">mdi-delete</v-icon>
                   Remove
                 </v-list-item>
-                     <v-list-item
-                    :to="{ name: 'customerForm', params: { code : item.id }}"
+                <v-list-item
+                  @click="getVehicle(item)"
                 >
                   <v-icon color="info" size="">mdi-eye</v-icon>
                   View
@@ -69,37 +59,116 @@
         </v-data-table>
       </v-card-text>
     </v-card>
+        <v-dialog v-model="dialog" scrollable max-width="300px">
+          <v-card>
+            <v-app-bar color="indigo" class="white--text">Add Vehicle</v-app-bar>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-row class="mt-4">
+                <v-col cols="12" md="12">
+                    <v-form ref="vehicleForm" v-model="isValid">
+                  <v-text-field
+                    dense
+                    label="Vehicle Number plate"
+                    outlined
+                    v-model="formData.registration_number"
+                    placeholder="Enter Vehicle Number Plate"
+                    :rules="[rules.required]"
+                  ></v-text-field>
+                  </v-form>
+                </v-col>
+              </v-row>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-btn color="blue darken-1" text @click="closeModal">
+                Close
+              </v-btn>
+              <v-btn color="blue darken-1" text @click="save">
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "CustomerList",
+  name: "fleetList",
   beforeRouteEnter(to, from, next) {
     next((v) => {
-      v.$store.dispatch("getCustomers");
+      v.$store.dispatch("getVehicles");
     });
   },
   data: () => ({
-    routeParameter: "",
     headers: [
       { text: "#S/N", value: "ID" },
-      { text: "Name", value: "name" },
-      { text: "Email", value: "email" },
-      { text: "Phone", value: "phone" },
+      { text: "Number Plate", value: "registration_number" },
+      {text: "Status", value:"status"},
       { text: "Actions", value: "action" },
     ],
+    dialog: false,
+    isEdit: false,
+    isValid: true,
+    rules: {
+        required: (value) => !!value || 'Required.',
+      },
+      formData:{
+          registration_number: '',
+          status:''
+      }
   }),
   computed: {
-    customerList() {
-      return this.$store.getters['vehicles'];
+    fleetList() {
+      return this.$store.getters["vehicles"];
     },
+    vehicle () {
+      return this.$store.getters['vehicle']
+    }
   },
   methods: {
-    removeCustomer(item) {
-      this.$store.dispatch('removeCustomer', item.id)
+    removeVehicle(item) {
+      this.$store.dispatch("removeVehicle", item.id);
+    },
+    openModal(){
+        this.dialog=true
+    },
+    getVehicle(item){
+     this.$store.dispatch("getVehicle", item.id);
+     this.isEdit= true
+     this.dialog=true
+    },
+    closeModal(){
+        this.$refs.vehicleForm.reset()
+        this.isEdit=false
+        this.dialog=false
+    },
+    save() {    
+      if (!this.isValid) {
+        this.$refs.vehicleForm.validate()
+      } else {
+        if (this.isEdit) {
+      this.$store.dispatch('updateVehicle', { ...this.formData})
+      this.closeModal()
+      }else{
+        this.formData.status ='Available'
+        this.$store.dispatch('addVehicle', { ...this.formData})
+        this.closeModal()
+      }
+    }
+},
+  },
+ watch: {
+    vehicle() {
+        if (this.isEdit) {
+          this.formData = { ...this.vehicle }
+        }
     },
   },
+  fleetList(){
+      return this.fleetList
+  }
 };
 </script>
 <style scoped>
