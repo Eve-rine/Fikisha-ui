@@ -1,6 +1,6 @@
-export default function auth ({ next }){
-  if(localStorage.getItem('Fikisha_token')===null){
-    window.location.replace('/login')
+export default function auth ({ next , router }){
+  if(localStorage.getItem('Fikisha_token')===null || localStorage.getItem('Fikisha_token')===undefined){
+    return router.push({ name: 'login' })
   }
   return next()
 }

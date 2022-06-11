@@ -14,7 +14,7 @@
                       prepend-icon="person"
                       label="Email"
                       v-model="formData.email"
-                      :rules="[rules.required]"
+                      :rules="[rules.required, rules.emailRules]"
                   ></v-text-field>
                   <v-text-field
                       prepend-icon="lock"
@@ -47,7 +47,9 @@ export default {
     },
     isValid: true,
     rules: {
-        required: (value) => !!value || 'Required.'
+        required: (value) => !!value || 'Required.',
+        emailRules:(v) => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+
   }
   }),
   methods:{

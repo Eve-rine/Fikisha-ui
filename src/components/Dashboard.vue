@@ -103,7 +103,7 @@
                         elevation="0"
                         color="primary"
                       >
-                        <span> Load </span>
+                        <span> Dispatch </span>
                       </v-btn>
                       </v-col>
                     </v-row>
