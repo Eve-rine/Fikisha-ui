@@ -20,7 +20,7 @@
                         outlined
                         dense
                         v-model="formData.order_number"
-                        :items="orders"
+                        :items="pendingOrders"
                         :item-text="(item) => item.description"
                         :item-value="(item) => item.id"
                         label="Select Order"
@@ -32,7 +32,7 @@
                         outlined
                         dense
                         v-model="formData.fleet_id"
-                        :items="vehicles"
+                        :items="availableVehicles"
                         :item-text="(item) => item.registration_number"
                         :item-value="(item) => item.id"
                         label="Select Fleet"
@@ -71,25 +71,12 @@
                 <v-row>
                   <v-col cols="12" md="12">
                     <v-row>
-                      <v-col cols="12" md="12">
-                        <v-select
-                        outlined
-                        dense
-                        v-model="dispatchForm.order_number"
-                        :items="orders"
-                        :item-text="(item) => item.description"
-                        :item-value="(item) => item.id"
-                        label="Select Order"
-                        :rules="[rules.required]"
-                        @change="getCustomer"
-                      ></v-select>
-                      </v-col>
                       <v-col md="12">
                         <v-select
                         outlined
                         dense
                         v-model="dispatchForm.fleet_id"
-                        :items="vehicles"
+                        :items="loadedVehicles"
                         :item-text="(item) => item.registration_number"
                         :item-value="(item) => item.id"
                         label="Select Fleet"
@@ -97,14 +84,17 @@
                       ></v-select>
                       </v-col>
                       <v-col>
+                      <div>
+                        <v-spacer/>
                       <v-btn
-                        @click="allocate"
+                        @click="dispatchOrders"
                         class="mr-2"
                         elevation="0"
                         color="primary"
                       >
                         <span> Dispatch </span>
                       </v-btn>
+                      </div>
                       </v-col>
                     </v-row>
                   </v-col>
@@ -150,7 +140,23 @@ export default {
     },
     vehicles(){
       return this.$store.getters['vehicles']
-    }
+    },
+    loadedVehicles(){
+        return this.vehicles.filter(
+          (a) => (a.status === 'Loading')
+        )
+    },
+    availableVehicles(){
+         return this.vehicles.filter(
+          (a) => (a.status === 'Available' || a.status === 'Loading')
+        )
+    },
+    pendingOrders(){
+         return this.orders.filter(
+          (a) => (a.status === 'Pending')
+        )
+    },
+
   },
   methods: {
     allocate() {    
@@ -159,14 +165,15 @@ export default {
       } else {
         this.formData.status= 'Loading'
         this.$store.dispatch('allocateOrder', { ...this.formData})
+        this.$refs.loadingForm.reset()
     }
     },
     dispatchOrders(){
       if (!this.isValid) {
         this.$refs.dispatchForm.validate()
       } else {
-        this.formData.status= 'Loading'
         this.$store.dispatch('dispatchOrders', { ...this.dispatchForm})
+        this.$refs.dispatchForm.reset()
     }
 },
  getCustomer(){

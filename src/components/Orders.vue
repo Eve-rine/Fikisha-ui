@@ -37,9 +37,6 @@
         <template v-slot:[`item.customer_id`]="{ item }">
         <span>{{item.customer.name }}</span>
          </template>
-        <template v-slot:[`item.fleet_id`]="{ item }">
-        <span>{{item.fleet.registration_number }}</span>
-         </template>
         <template v-slot:[`item.description`]="{ item }">
         <span>{{item.description }}</span>
          </template>
@@ -65,7 +62,6 @@ export default {
       { text: "#S/N", value: "ID" },
       { text: "Order Number", value: "order_number" },
       { text: "Customer", value: "customer_id" },
-      { text: "Vehicle", value: "fleet_id" },
       { text: "Description", value: "description" },
       {text: "Status", value:"status"}
     ],

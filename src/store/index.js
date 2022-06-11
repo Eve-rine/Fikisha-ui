@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import instance from "@/service";
-// import {jwtInterceptor} from "@/service/Interceptor";
 import router from '../router'
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -37,9 +36,8 @@ export default new Vuex.Store({
             Event.$emit('ApiSuccess', 'Logging In...')
             router.push('/dashboard')
           })
-          .catch((err)=>{
+          .catch(()=>{
             Event.$emit('ApiError', 'Incorrect credentials')
-            console.log(err)
           })
     },
     logout(){
@@ -48,19 +46,20 @@ export default new Vuex.Store({
               localStorage.clear();
               router.push('/login')
             })
-          .catch(err=>{
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Unable to log out')
           })
     },
     addCustomer({commit}, payload){
       console.log(commit)
       instance('post','customers',payload)
           .then(()=>{
+            Event.$emit('ApiSuccess', 'Customer Successfully added')
             router.push('/customers')
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to add customer')
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Error adding customer')
+            
           })
     },
     getCustomers({commit}){
@@ -68,9 +67,9 @@ export default new Vuex.Store({
           .then((res)=>{
             commit('MUTATE', { state: 'customers', data: res.data.data.data })
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to get customers')
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Error getting customers')
+            
           })
     },
     getCustomer({commit}, id){
@@ -78,9 +77,9 @@ export default new Vuex.Store({
           .then((res)=>{
             commit('MUTATE', { state: 'customer', data: res.data.data })
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to get customer')
-            console.log(err)
+          .catch(()=>{
+            // Event.$emit('ApiError', 'Error to get customer')
+            
           })
     },
     updateCustomer({commit},payload){
@@ -89,9 +88,9 @@ export default new Vuex.Store({
           .then(()=>{
             router.push('/customers')
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to update customer')
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Error updating customer')
+            
           })
     },
     removeCustomer({dispatch}, id){
@@ -101,19 +100,20 @@ export default new Vuex.Store({
             router.push('/customers')
             dispatch('getCustomers')
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to delete customer')
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Error deleting customer')
+            
           })
     },
     addVehicle({dispatch}, payload){
       instance('post','fleet',payload)
           .then(()=>{
+            Event.$emit('ApiSuccess', 'Vehicle Successfully added')
             dispatch('getVehicles')
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to add customer')
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Error adding customer')
+            
           })
     },
     getVehicles({commit}){
@@ -121,9 +121,7 @@ export default new Vuex.Store({
           .then((res)=>{
             commit('MUTATE', { state: 'vehicles', data: res.data.data.data })
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to get vehicles')
-            console.log(err)
+          .catch(()=>{        
           })
     },
     getVehicle({commit}, id){
@@ -131,9 +129,9 @@ export default new Vuex.Store({
           .then((res)=>{
             commit('MUTATE', { state: 'vehicle', data: res.data.data })
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to get customer')
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Unable to get vehicle')
+            
           })
     },
     updateVehicle({dispatch},payload){
@@ -142,9 +140,9 @@ export default new Vuex.Store({
             Event.$emit('ApiSuccess', 'Vehicle Successfully updated')
             dispatch('getVehicles')
           })
-          .catch((err)=>{
+          .catch(()=>{
             Event.$emit('ApiError', 'Unable to update vehicle')
-            console.log(err)
+            
           })
     },
     removeVehicle({dispatch}, id){
@@ -154,9 +152,9 @@ export default new Vuex.Store({
             router.push('/vehicles')
             dispatch('getVehicles')
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to delete vehicle')
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Unable to delete vehicle')
+            
           })
     },
     getOrders({commit}){
@@ -164,31 +162,31 @@ export default new Vuex.Store({
           .then((res)=>{
             commit('MUTATE', { state: 'orders', data: res.data.data.data })
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to get orders')
-            console.log(err)
+          .catch(()=>{
           })
     },
     
     allocateOrder({dispatch}, payload){
       instance('post','load',payload)
           .then(()=>{
+            Event.$emit('ApiSuccess', 'Order allocated')
             dispatch('getOrders')
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to add customer')
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Error allocating order')
+            
           })
     },
         
     dispatchOrders({dispatch}, payload){
       instance('post','load',payload)
           .then(()=>{
+            Event.$emit('ApiSuccess', 'Vehicle dispatched')
             dispatch('getOrders')
           })
-          .catch((err)=>{
-            // Event.$emit('ApiError', 'Unable to add customer')
-            console.log(err)
+          .catch(()=>{
+            Event.$emit('ApiError', 'Erro dispatching vehicle')
+            
           })
     },
   },
