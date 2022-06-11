@@ -8,7 +8,8 @@ console.log('intercept')
 let token=localStorage.getItem('Fikisha_token');
 const authInterceptor = (config) => {
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        // config.headers.Authorization = `Bearer ${token}`;
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('Fikisha_token')}`
     }
     config.headers.common.Accept = "Application/json";
     config.headers["Access-Control-Allow-Origin"] = "*";
