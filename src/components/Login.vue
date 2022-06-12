@@ -6,7 +6,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="indigo">
-                <v-toolbar-title>FIKISHA LIMITED</v-toolbar-title>
+                <v-toolbar-title class="flex text-center">FIKISHA LIMITED</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form  v-model="isValid" ref="loginForm">
@@ -19,9 +19,11 @@
                   <v-text-field
                       prepend-icon="lock"
                       label="Password"
-                      type="password"
                       v-model="formData.password"
                       :rules="[rules.required]"
+                      :type="showPassword ? 'text' : 'password'"
+                      :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+                      @click:append="showPassword = !showPassword"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -45,6 +47,7 @@ export default {
       email:'',
       password: ''
     },
+    showPassword: false,
     isValid: true,
     rules: {
         required: (value) => !!value || 'Required.',

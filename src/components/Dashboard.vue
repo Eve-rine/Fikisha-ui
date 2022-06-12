@@ -6,15 +6,14 @@
           <v-card
             flat
             style="background-color: #ffffff"
-            :elevation="hover ? 16 : 0"
-            :class="{ 'on-hover': hover }"
+            elevation="0"
             class="mx-2 mt-3"
           >
             <v-list>
               <v-list-item class="stats">
                 <v-list-item-content>
-                  <v-list-item-title class="text-lg-h5">{{
-                    customers.length
+                  <v-list-item-title class="text-lg-h5">{{customers?
+                    customers.length:0
                   }}</v-list-item-title>
                   <v-list-item-subtitle>Customers</v-list-item-subtitle>
                 </v-list-item-content>
@@ -33,15 +32,14 @@
           <v-card
             flat
             style="background-color: #ffffff"
-            :elevation="hover ? 16 : 0"
-            :class="{ 'on-hover': hover }"
+            elevation="0"
             class="mx-2 mt-3"
           >
             <v-list>
               <v-list-item class="stats">
                 <v-list-item-content>
-                  <v-list-item-title class="text-lg-h5">{{
-                    orders.length
+                  <v-list-item-title class="text-lg-h5">{{orders?
+                    orders.length:0
                   }}</v-list-item-title>
                   <v-list-item-subtitle>Orders</v-list-item-subtitle>
                 </v-list-item-content>
@@ -60,15 +58,14 @@
           <v-card
             flat
             style="background-color: #ffffff"
-            :elevation="hover ? 16 : 0"
-            :class="{ 'on-hover': hover }"
+            elevation="0"
             class="mx-2 mt-3"
           >
             <v-list>
               <v-list-item class="stats">
                 <v-list-item-content>
-                  <v-list-item-title class="text-lg-h5">{{
-                    vehicles.length
+                  <v-list-item-title class="text-lg-h5">{{vehicles?
+                    vehicles.length:0
                   }}</v-list-item-title>
                   <v-list-item-subtitle>Vehicles</v-list-item-subtitle>
                 </v-list-item-content>
@@ -101,7 +98,7 @@
                           dense
                           v-model="formData.order_number"
                           :items="pendingOrders"
-                          :item-text="(item) => item.description"
+                          :item-text="(item) => item.order_number"
                           :item-value="(item) => item.id"
                           label="Select Order"
                           :rules="[rules.required]"
