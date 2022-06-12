@@ -50,12 +50,12 @@ export default new Vuex.Store({
             Event.$emit('ApiError', 'Unable to log out')
           })
     },
-    addCustomer({commit}, payload){
-      console.log(commit)
+    addCustomer({dispatch}, payload){
       instance('post','customers',payload)
           .then(()=>{
             Event.$emit('ApiSuccess', 'Customer Successfully added')
             router.push('/customers')
+            dispatch('getCustomers')
           })
           .catch(()=>{
             Event.$emit('ApiError', 'Error adding customer')
@@ -82,11 +82,11 @@ export default new Vuex.Store({
             
           })
     },
-    updateCustomer({commit},payload){
-      console.log(commit)
+    updateCustomer({dispatch},payload){
       instance('patch',`customers/${payload.id}`, payload)
           .then(()=>{
             router.push('/customers')
+            dispatch('getCustomers')
           })
           .catch(()=>{
             Event.$emit('ApiError', 'Error updating customer')
