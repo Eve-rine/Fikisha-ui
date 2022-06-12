@@ -1,15 +1,17 @@
 # fikisha-ui
 
 ## Project setup
+
+## Installation
 ```
 Clone the repository 
-Indide the project folder run 'npm install'
+Inside the project folder run 'npm install'
 
 ```
 
 ### Run the application
 ```
-After npm package installation is complete run 'npm serve'
+After npm package installation is complete run 'npm run serve'
 Copy the url generated to your browser
 
 ```

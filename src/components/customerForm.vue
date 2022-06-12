@@ -61,7 +61,7 @@
                           :rules="[rules.required]"
                         ></v-text-field>
                       </v-col>
-                      <v-col md="6">
+                      <v-col cols="12" md="6">
                         <v-text-field
                           dense
                           label="Customer Email"
@@ -71,7 +71,7 @@
                           :rules="[rules.required, rules.emailRules]"
                         ></v-text-field>
                       </v-col>
-                      <v-col md="6">
+                      <v-col cols="12" md="6">
                         <v-text-field
                           dense
                           label="Customer Phone"
