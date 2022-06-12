@@ -110,7 +110,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next((v) => {
-      if (v.$route.params) {
+      if (v.$route.params.code) {
         v.$store.dispatch(
           'getCustomer',
           v.$route.params.code
