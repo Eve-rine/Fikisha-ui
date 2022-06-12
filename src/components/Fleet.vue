@@ -37,11 +37,13 @@
           :items="fleetList"
         >
           <template v-slot:[`item.ID`]="{ index }">
-            <!-- <template v-slot:item.ID="{ index }"> -->
             <span>{{ index + 1 }}</span>
           </template>
           <template v-slot:[`item.registration_number`]="{ item }">
             <span>{{ item.registration_number }}</span>
+          </template>
+          <template v-slot:[`item.status`]="{ item }">
+            <v-chip small :color="item.status==='Available'?'warning': item.status==='Loading'?'info':'success'">{{item.status }}</v-chip>
           </template>
           <template v-slot:[`item.action`]="{ item }">
             <v-menu open-on-hover>

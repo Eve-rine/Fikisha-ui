@@ -41,7 +41,7 @@
         <span>{{item.description }}</span>
          </template>
         <template v-slot:[`item.status`]="{ item }">
-        <span>{{item.status }}</span>
+          <v-chip small :color="item.status==='Pending'?'warning': item.status==='Loading'?'info':'success'">{{item.status }}</v-chip>
          </template>
         </v-data-table>
       </v-card-text>
