@@ -12,6 +12,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/dashboard'
+  },
+  {
     path: '/dashboard',
     name: 'dashboard',
     component: AppDashboard,
