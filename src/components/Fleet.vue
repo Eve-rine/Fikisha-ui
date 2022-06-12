@@ -96,7 +96,8 @@
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
-              <v-btn color="blue darken-1" text @click="closeModal">
+              <v-spacer/>
+              <v-btn color="red darken-1" text @click="closeModal">
                 Close
               </v-btn>
               <v-btn color="blue darken-1" text @click="save">
