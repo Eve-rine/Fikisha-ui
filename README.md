@@ -2,23 +2,26 @@
 
 ## Project setup
 ```
-npm install
+Clone the repository 
+Indide the project folder run 'npm install'
+
 ```
 
-### Compiles and hot-reloads for development
+### Run the application
 ```
-npm run serve
+After npm package installation is complete run 'npm serve'
+Copy the url generated to your browser
+
 ```
 
-### Compiles and minifies for production
+### Compiling for production
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Linting
 ```
-npm run lint
+Incase of any linting errors depending on your coding editor, run 'npm run lint'
+
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
