@@ -6,6 +6,7 @@
 ```
 Clone the repository 
 Inside the project folder run 'npm install'
+In the .env file change the VUE_APP_API to point where your laravel api is running
 
 ```
 
