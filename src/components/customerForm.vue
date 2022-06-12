@@ -1,7 +1,7 @@
 <template>
   <v-container class="fade-transition">
     <v-card elevation="0" tile class="mx-auto">
-      <v-app-bar class="mt-3 justify-space-between" elevation="0" dense color="#ffffff">
+      <v-card-title elevation="0" dense color="#ffffff">
         <v-btn color="red darken-1" text elevation="0" class="mr-2" @click="$router.back()">
           <v-icon class="mx-1">mdi-arrow-left-thin</v-icon>
           back
@@ -27,7 +27,7 @@
           </v-icon>
           <span> {{ $route.params.code ? `Save Changes` : "Save" }} </span>
         </v-btn>
-      </v-app-bar>
+      </v-card-title>
       <v-divider></v-divider>
       <v-card-text>
         <div class="mx-3">
