@@ -2,10 +2,7 @@
   <v-container>
     <v-card flat>
       <v-card-title>
-        <!-- <v-btn text small @click="$router.back()">
-          <v-icon left> mdi-arrow-left </v-icon>
-          Back
-        </v-btn> -->
+        <span>Customer List</span>
         <v-spacer />
         <div class="ma-2">
           <v-btn

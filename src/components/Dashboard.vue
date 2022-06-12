@@ -27,7 +27,7 @@
                         :rules="[rules.required]"
                       ></v-select>
                       </v-col>
-                      <v-col md="12">
+                      <v-col cols="12" md="12">
                         <v-select
                         outlined
                         dense
@@ -71,7 +71,7 @@
                 <v-row>
                   <v-col cols="12" md="12">
                     <v-row>
-                      <v-col md="12">
+                      <v-col cols="12" md="12">
                         <v-select
                         outlined
                         dense
