@@ -170,6 +170,7 @@ export default new Vuex.Store({
       instance('post','load',payload)
           .then(()=>{
             Event.$emit('ApiSuccess', 'Order allocated')
+            dispatch('getVehicles')
             dispatch('getOrders')
           })
           .catch(()=>{
@@ -183,9 +184,10 @@ export default new Vuex.Store({
           .then(()=>{
             Event.$emit('ApiSuccess', 'Vehicle dispatched')
             dispatch('getOrders')
+            dispatch('getVehicles')
           })
           .catch(()=>{
-            Event.$emit('ApiError', 'Erro dispatching vehicle')
+            Event.$emit('ApiError', 'Error dispatching vehicle')
             
           })
     },
