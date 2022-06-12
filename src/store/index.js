@@ -78,7 +78,7 @@ export default new Vuex.Store({
             commit('MUTATE', { state: 'customer', data: res.data.data })
           })
           .catch(()=>{
-            // Event.$emit('ApiError', 'Error to get customer')
+            Event.$emit('ApiError', 'Error getting customer')
             
           })
     },
@@ -191,7 +191,5 @@ export default new Vuex.Store({
             
           })
     },
-  },
-  modules: {
   }
 })
