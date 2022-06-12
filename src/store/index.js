@@ -180,7 +180,7 @@ export default new Vuex.Store({
     },
         
     dispatchOrders({dispatch}, payload){
-      instance('post','load',payload)
+      instance('post','dispatch',payload)
           .then(()=>{
             Event.$emit('ApiSuccess', 'Vehicle dispatched')
             dispatch('getOrders')
